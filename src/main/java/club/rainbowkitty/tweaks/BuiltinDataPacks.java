@@ -1,21 +1,21 @@
 package club.rainbowkitty.tweaks;
 
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
 public final class BuiltinDataPacks {
     private BuiltinDataPacks() {}
 
-        public static final Identifier CHEAPER_RAILS = Identifier.of(Main.MOD_ID, "cheaper_rails");
-        public static final Identifier CHEAPER_MAPS = Identifier.of(Main.MOD_ID, "cheaper_maps");
-        public static final Identifier CRAFTABLE_NAME_TAG = Identifier.of(Main.MOD_ID, "craftable_name_tag");
-        public static final Identifier FARMERSDELIGHT_ROPE_COMPAT = Identifier.of(Main.MOD_ID, "farmersdelight_rope_compat");
+        public static final Identifier CHEAPER_RAILS = Identifier.fromNamespaceAndPath(Main.MOD_ID, "cheaper_rails");
+        public static final Identifier CHEAPER_MAPS = Identifier.fromNamespaceAndPath(Main.MOD_ID, "cheaper_maps");
+        public static final Identifier CRAFTABLE_NAME_TAG = Identifier.fromNamespaceAndPath(Main.MOD_ID, "craftable_name_tag");
+        public static final Identifier FARMERSDELIGHT_ROPE_COMPAT = Identifier.fromNamespaceAndPath(Main.MOD_ID, "farmersdelight_rope_compat");
 
     public static void register() {
         Optional<ModContainer> self = FabricLoader.getInstance().getModContainer(Main.MOD_ID);
@@ -23,25 +23,25 @@ public final class BuiltinDataPacks {
         ModContainer container = self.get();
 
         // Register as built-in SERVER_DATA packs, enabled by default
-        ResourceManagerHelper.registerBuiltinResourcePack(
+        ResourceLoader.registerBuiltinPack(
             CHEAPER_RAILS, container,
-            Text.literal("RainbowKittyTweaks: cheaper rails"),
-            ResourcePackActivationType.DEFAULT_ENABLED
+            Component.literal("RainbowKittyTweaks: cheaper rails"),
+            PackActivationType.DEFAULT_ENABLED
         );
-        ResourceManagerHelper.registerBuiltinResourcePack(
+        ResourceLoader.registerBuiltinPack(
             CHEAPER_MAPS, container,
-            Text.literal("RainbowKittyTweaks: cheaper maps"),
-            ResourcePackActivationType.DEFAULT_ENABLED
+            Component.literal("RainbowKittyTweaks: cheaper maps"),
+            PackActivationType.DEFAULT_ENABLED
         );
-        ResourceManagerHelper.registerBuiltinResourcePack(
+        ResourceLoader.registerBuiltinPack(
             CRAFTABLE_NAME_TAG, container,
-            Text.literal("RainbowKittyTweaks: craftable name tag"),
-            ResourcePackActivationType.DEFAULT_ENABLED
+            Component.literal("RainbowKittyTweaks: craftable name tag"),
+            PackActivationType.DEFAULT_ENABLED
         );
-        ResourceManagerHelper.registerBuiltinResourcePack(
+        ResourceLoader.registerBuiltinPack(
             FARMERSDELIGHT_ROPE_COMPAT, container,
-            Text.literal("RainbowKittyTweaks: add Farmers' Delight rope to rope tag"),
-            ResourcePackActivationType.NORMAL
+            Component.literal("RainbowKittyTweaks: add Farmers' Delight rope to rope tag"),
+            PackActivationType.NORMAL
         );
     }
 }

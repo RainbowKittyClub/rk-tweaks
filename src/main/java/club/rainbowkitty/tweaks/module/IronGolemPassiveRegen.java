@@ -1,18 +1,16 @@
 package club.rainbowkitty.tweaks.module;
 
-import club.rainbowkitty.tweaks.rule.CachedIntRule;
+import club.rainbowkitty.tweaks.rule.ModGameRules;
 import club.rainbowkitty.tweaks.state.MobRegenState;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Mob;
 
 /**
- * Module to provide passive regeneration for iron golems via a game rule.
- * When enabled, iron golems will slowly regenerate health over time if they
- * have taken damage, with configurable regeneration rate and delay.
- * Controlled via the {@code ironGolemRegenTicks} and {@code ironGolemRegenDelay} gamerules.
- * 
+ * Slowly heals iron golems back to full once they have been left alone long enough.
+ * Controlled via the {@code rktweaks:iron_golem_regen_ticks} and
+ * {@code rktweaks:iron_golem_regen_delay} gamerules.
+ *
  * The regeneration process follows these steps:
  * <ol>
  *   <li>Check if enough time has passed since last damage</li>
@@ -22,46 +20,16 @@ import net.minecraft.server.world.ServerWorld;
  * </ol>
  */
 public final class IronGolemPassiveRegen {
-    private static final IronGolemPassiveRegen INSTANCE = new IronGolemPassiveRegen();
-    private static boolean initialized = false; 
-
-    public static final CachedIntRule IRON_GOLEM_REGENERATION_RATE = new CachedIntRule(
-        "ironGolemRegenTicks",
-        60,
-        0,
-        Integer.MAX_VALUE
-    );
-    public static final CachedIntRule IRON_GOLEM_REGENERATION_DELAY = new CachedIntRule(
-        "ironGolemRegenDelay",
-        200,
-        0,
-        Integer.MAX_VALUE
-    );
-
     private IronGolemPassiveRegen() {}
 
-    public static void init() {
-        if (initialized) return;
-        initialized = true;
-    }
-
-    public static IronGolemPassiveRegen getInstance() {
-        return INSTANCE;
-    }
-
-    public static boolean isInitialized() {
-        return initialized;
-    }
-
-    public static void ironGolemRegenTick(MobEntity self, ServerWorld world, MobRegenState state) {
-        int ticksPerHeal = IronGolemPassiveRegen.IRON_GOLEM_REGENERATION_RATE.getValue(world);
+    public static void ironGolemRegenTick(Mob self, ServerLevel level, MobRegenState state) {
+        int ticksPerHeal = level.getGameRules().get(ModGameRules.IRON_GOLEM_REGEN_TICKS);
         if (ticksPerHeal <= 0) return;
 
-        long regenDelay = IronGolemPassiveRegen.IRON_GOLEM_REGENERATION_DELAY.getValue(world);
+        long regenDelay = level.getGameRules().get(ModGameRules.IRON_GOLEM_REGEN_DELAY);
 
         // Update time since last damage: reset on hurt frames, otherwise increment and persist.
-        LivingEntity living = (LivingEntity) self;
-        if (living.hurtTime > 0) {
+        if (self.hurtTime > 0) {
             state.setTimeSinceDamage(0L);
         } else {
             state.setTimeSinceDamage(state.getTimeSinceDamage() + 1);

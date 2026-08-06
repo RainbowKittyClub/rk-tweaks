@@ -3,18 +3,18 @@
 # Recipe Tweaks
 
 ### Name Tag Recipe
-- Part of the `rainbowkittytweaks:craftable_name_tag` datapack. Enabled by default.
+- Part of the `rktweaks:craftable_name_tag` datapack. Enabled by default.
 ![Name Tag Recipe](img/name_tag_recipe.png)
 
 ### Cheaper Rails
-- Part of the `rainbowkittytweaks:cheaper_rails` datapack. Enabled by default.
+- Part of the `rktweaks:cheaper_rails` datapack. Enabled by default.
 ![Rail Recipe](img/rail_recipe.png)
 ![Powered Rail Recipe](img/powered_rail_recipe.png)
 ![Detector Rail Recipe](img/detector_rail_recipe.png)
 ![Activator Rail Recipe](img/activator_rail_recipe.png)
 
 ### Cheaper maps
-- Part of the `rainbowkittytweaks:cheaper_maps` datapack. Enabled by default.
+- Part of the `rktweaks:cheaper_maps` datapack. Enabled by default.
 ![Map Recipe](img/map_recipe.png)
 
 # Gameplay Tweaks
@@ -41,4 +41,4 @@
 
 ### Farmer's Delight rope categorization
 - Puts the rope in the right category so that it can be used in recipes that use `#c:ropes` as an ingredient.
-- Part of the `rainbowkittytweaks:farmersdelight_rope_compat` datapack. Disabled by default.
+- Part of the `rktweaks:farmersdelight_rope_compat` datapack. Disabled by default.

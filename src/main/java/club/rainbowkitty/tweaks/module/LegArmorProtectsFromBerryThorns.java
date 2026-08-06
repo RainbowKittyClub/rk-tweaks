@@ -1,69 +1,47 @@
 package club.rainbowkitty.tweaks.module;
 
-import club.rainbowkitty.tweaks.rule.CachedBooleanRule;
+import club.rainbowkitty.tweaks.rule.ModGameRules;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.equine.Horse;
+import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.player.Player;
 
 /**
- * Module to toggle whether leg armor prevents damage from sweet berry bush thorns.
- * Controlled via the {@code legArmorProtectsFromBerryThorns} gamerule.
+ * Makes leg armor prevent sweet berry bush thorn damage.
+ * Controlled via the {@code rktweaks:leg_armor_protects_from_berry_thorns} gamerule.
  *
  * See mixin {@link club.rainbowkitty.tweaks.mixin.SweetBerryBushBlockMixin} for behavior.
  */
 public final class LegArmorProtectsFromBerryThorns {
-    private static final LegArmorProtectsFromBerryThorns INSTANCE = new LegArmorProtectsFromBerryThorns();
-    private static boolean initialized = false;
-
-    public static final CachedBooleanRule ALLOW_LEG_ARMOR_PROTECTS_FROM_BERRY_THORNS = new CachedBooleanRule(
-        "legArmorProtectsFromBerryThorns",
-        true
-    );
-
     private LegArmorProtectsFromBerryThorns() {}
 
-    public static void init() {
-        if (initialized) return;
-        initialized = true;
-    }
+    public static boolean shouldCancelDamage(Entity targetEntity, ServerLevel level) {
+        if (!level.getGameRules().get(ModGameRules.LEG_ARMOR_PROTECTS_FROM_BERRY_THORNS)) return false;
 
-    public static LegArmorProtectsFromBerryThorns getInstance() {
-        return INSTANCE;
-    }
-
-    public static boolean isInitialized() {
-        return initialized;
-    }
-
-    /**
-     * Evaluate whether berry bush thorn damage should be cancelled for the given entity in the
-     * provided world.
-     *
-     * @param targetEntity the entity that would take damage
-     * @param world the server world where the event originates
-     * @return true if damage should be cancelled, false otherwise
-     */
-    public static boolean shouldCancelDamage(net.minecraft.entity.Entity targetEntity, net.minecraft.server.world.ServerWorld world) {
-        if (ALLOW_LEG_ARMOR_PROTECTS_FROM_BERRY_THORNS.getValue(world)) {
-            // Players with leg armor are protected
-            if (targetEntity instanceof net.minecraft.entity.player.PlayerEntity player) {
-                return player.getEquippedStack(net.minecraft.entity.EquipmentSlot.LEGS).isIn(net.minecraft.registry.tag.ItemTags.LEG_ARMOR);
-            }
-
-            // Horses with body armor are protected
-            if (targetEntity instanceof net.minecraft.entity.passive.HorseEntity horse) {
-                return !horse.getEquippedStack(net.minecraft.entity.EquipmentSlot.BODY).isEmpty();
-            }
-
-            // Wolves with body armor are protected
-            if (targetEntity instanceof net.minecraft.entity.passive.WolfEntity wolf) {
-                return !wolf.getEquippedStack(net.minecraft.entity.EquipmentSlot.BODY).isEmpty();
-            }
-
-            // Other mobs with leg armor are protected
-            if (targetEntity instanceof net.minecraft.entity.mob.MobEntity mob) {
-                return mob.getEquippedStack(net.minecraft.entity.EquipmentSlot.LEGS).isIn(net.minecraft.registry.tag.ItemTags.LEG_ARMOR);
-            }
+        // Players with leg armor are protected
+        if (targetEntity instanceof Player player) {
+            return player.getItemBySlot(EquipmentSlot.LEGS).typeHolder().is(ItemTags.LEG_ARMOR);
         }
 
-        // Protection disabled or entity not wearing appropriate armor - proceed with normal damage
+        // Horses with body armor are protected
+        if (targetEntity instanceof Horse horse) {
+            return !horse.getItemBySlot(EquipmentSlot.BODY).isEmpty();
+        }
+
+        // Wolves with body armor are protected
+        if (targetEntity instanceof Wolf wolf) {
+            return !wolf.getItemBySlot(EquipmentSlot.BODY).isEmpty();
+        }
+
+        // Other mobs with leg armor are protected
+        if (targetEntity instanceof Mob mob) {
+            return mob.getItemBySlot(EquipmentSlot.LEGS).typeHolder().is(ItemTags.LEG_ARMOR);
+        }
+
         return false;
     }
 }

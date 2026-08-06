@@ -1,0 +1,19 @@
+{
+  "title.rktweaks": "RainbowKittyTweaks",
+  "category.main.rktweaks": "Main",
+
+  "gamerule.rktweaks.fire_arrows_light_fire": "Fire Arrows Light Fire",
+  "gamerule.rktweaks.fire_arrows_light_fire.description": "Flaming arrows ignite blocks on impact",
+
+  "gamerule.rktweaks.give_all_recipes": "Give All Recipes",
+  "gamerule.rktweaks.give_all_recipes.description": "Unlock all crafting recipes for players on join",
+
+  "gamerule.rktweaks.leg_armor_protects_from_berry_thorns": "Leg Armor Protects From Berry Thorns",
+  "gamerule.rktweaks.leg_armor_protects_from_berry_thorns.description": "Prevent berry bush damage when wearing leg armor or mount armor",
+
+  "gamerule.rktweaks.iron_golem_regen_ticks": "Iron Golem Regeneration Rate",
+  "gamerule.rktweaks.iron_golem_regen_ticks.description": "Number of ticks between each regeneration event for iron golems (0 to disable)",
+
+  "gamerule.rktweaks.iron_golem_regen_delay": "Iron Golem Regeneration Delay",
+  "gamerule.rktweaks.iron_golem_regen_delay.description": "Number of ticks after taking damage before iron golem regeneration can start (0 to disable)"
+}

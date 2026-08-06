@@ -2,13 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "club.rainbowkitty.tweaks.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
     "SweetBerryBushBlockMixin",
-    "ServerPlayerEntityMixin",
-    "CommandBlockExecutorMixin",
-    "PersistentProjectileEntityMixin",
-    "MobEntityMixin"
+    "AbstractArrowMixin",
+    "MobMixin"
   ],
   "client": [
   ],

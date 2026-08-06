@@ -1,12 +1,11 @@
 plugins {
 	id 'base'
-	id 'fabric-loom' version "${loom_version}"
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
-	id 'com.gradleup.shadow' version '9.1.0'
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_21
-java.targetCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_25
+java.targetCompatibility = JavaVersion.VERSION_25
 
 base {
 	archivesName.set(project.mod_id)
@@ -15,30 +14,11 @@ base {
 version = project.mod_version
 group = project.maven_group
 
-configurations.modImplementation.extendsFrom(configurations.shadow)
-
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-}
-
-// Shadowing the libraries
-
-tasks.shadowJar {
-	archiveClassifier.set('shadow-dev')
-	configurations = [project.configurations.shadow]
-	enableAutoRelocation = true
-	relocationPrefix = "${project.group}.${project.mod_id}.shadow"
-}
-
-remapJar {
-	dependsOn shadowJar
-	mustRunAfter shadowJar
-	input.set shadowJar.archiveFile
-	archiveClassifier.set(null)
+	implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
@@ -96,6 +76,7 @@ tasks.named('processResources') {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile).configureEach {
 	options.encoding = "UTF-8"
+	options.release = 25
 }
 
 // Let the Java plugin create a sourcesJar task so Loom can wire it correctly.
@@ -111,11 +92,7 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar)
+			from components.java
 		}
 	}
 
