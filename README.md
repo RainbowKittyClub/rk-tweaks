@@ -20,22 +20,18 @@
 # Gameplay Tweaks
 
 ### Leg armor negates sweet berry thorn damage
-- Configurable with the new `gamerule legArmorProtectsFromBerryThorns`, default `true`.
+- Configurable with the new `gamerule rktweaks:leg_armor_protects_from_berry_thorns`, default `true`.
 
 ### All recipes are granted when joining server
-- Configurable with the new `gamerule giveAllRecipes`, default `true`.
-
-### Command blocks can be disabled
-- Using the new `gamerule commandBlocksEnabled`, default `true`.
-- Command blocks still need to be enabled in `server.properties`.
+- Configurable with the new `gamerule rktweaks:give_all_recipes`, default `true`.
 
 ### Flaming arrows ignite fire if they land on a flammable surface
-- Configurable using the new `gamerule fireArrowsLightFire`, default `true`.
+- Configurable using the new `gamerule rktweaks:fire_arrows_light_fire`, default `true`.
 
 ### Iron golems regenerate over time
-- Configurable using the new `gamerule ironGolemRegenTicks`, default `60`.
+- Configurable using the new `gamerule rktweaks:iron_golem_regen_ticks`, default `60`.
 - Value is number of ticks between each regeneration event, where the golem gains 1hp.
-- `gamerule ironGolemRegenDelay` specifies the number of ticks to wait after the golem takes damage to resume healing.
+- `gamerule rktweaks:iron_golem_regen_delay` specifies the number of ticks to wait after the golem takes damage to resume healing.
 
 # Misc
 
