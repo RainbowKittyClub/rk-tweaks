@@ -33,6 +33,9 @@
 - Value is number of ticks between each regeneration event, where the golem gains 1hp.
 - `gamerule rktweaks:iron_golem_regen_delay` specifies the number of ticks to wait after the golem takes damage to resume healing.
 
+### Creepers drop every block they break
+- Configurable with the new `gamerule rktweaks:creepers_drop_all_blocks`, default `true`.
+
 # Misc
 
 ### Farmer's Delight rope categorization

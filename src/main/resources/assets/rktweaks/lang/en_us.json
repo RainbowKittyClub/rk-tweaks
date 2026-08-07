@@ -11,6 +11,9 @@
   "gamerule.rktweaks.leg_armor_protects_from_berry_thorns": "Leg Armor Protects From Berry Thorns",
   "gamerule.rktweaks.leg_armor_protects_from_berry_thorns.description": "Prevent berry bush damage when wearing leg armor or mount armor",
 
+  "gamerule.rktweaks.creepers_drop_all_blocks": "Creepers Drop All Blocks",
+  "gamerule.rktweaks.creepers_drop_all_blocks.description": "Creeper explosions drop every block they break instead of about 30%",
+
   "gamerule.rktweaks.iron_golem_regen_ticks": "Iron Golem Regeneration Rate",
   "gamerule.rktweaks.iron_golem_regen_ticks.description": "Number of ticks between each regeneration event for iron golems (0 to disable)",
 

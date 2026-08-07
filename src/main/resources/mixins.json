@@ -6,7 +6,8 @@
   "mixins": [
     "SweetBerryBushBlockMixin",
     "AbstractArrowMixin",
-    "MobMixin"
+    "MobMixin",
+    "ServerExplosionMixin"
   ],
   "client": [
   ],

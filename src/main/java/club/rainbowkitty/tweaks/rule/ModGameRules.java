@@ -29,6 +29,9 @@ public final class ModGameRules {
     public static final GameRule<Boolean> LEG_ARMOR_PROTECTS_FROM_BERRY_THORNS =
         registerBoolean("leg_armor_protects_from_berry_thorns", true);
 
+    public static final GameRule<Boolean> CREEPERS_DROP_ALL_BLOCKS =
+        registerBoolean("creepers_drop_all_blocks", true);
+
     public static final GameRule<Integer> IRON_GOLEM_REGEN_TICKS =
         registerInteger("iron_golem_regen_ticks", 60, 0, Integer.MAX_VALUE);
 
