@@ -38,3 +38,9 @@ logs/
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+
+# claude code local session state; shared settings stay trackable
+
+**/.claude/*
+!/.claude/settings.json
+.mcp.json
